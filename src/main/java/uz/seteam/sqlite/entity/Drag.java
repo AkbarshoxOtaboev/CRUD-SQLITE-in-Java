@@ -14,15 +14,27 @@ public class Drag {
     private String date;
     private Integer generalCost;
 
+    private Long dragId;
+
+
     public Drag() {
     }
 
-    public Drag(String name, Integer cost, Integer count, String date, Integer generalCost) {
+    public Drag(String name, Integer cost, Integer count, String date, Integer generalCost, Long dragId) {
         this.name = name;
         this.cost = cost;
         this.count = count;
         this.date = date;
         this.generalCost = generalCost;
+        this.dragId = dragId;
+    }
+
+    public Long getDragId() {
+        return dragId;
+    }
+
+    public void setDragId(Long dragId) {
+        this.dragId = dragId;
     }
 
     public Long getId() {

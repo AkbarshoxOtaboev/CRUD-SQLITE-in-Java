@@ -1,6 +1,7 @@
 package uz.seteam.sqlite.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
@@ -11,12 +12,23 @@ public class Company {
     private String name;
     private Integer balans;
 
+    @OneToMany(mappedBy = "dragId")
+    private List<Drag> dragList;
+
     public Company() {
     }
 
     public Company(String name, Integer balans) {
         this.name = name;
         this.balans = balans;
+    }
+
+    public List<Drag> getDragList() {
+        return dragList;
+    }
+
+    public void setDragList(List<Drag> dragList) {
+        this.dragList = dragList;
     }
 
     public Long getId() {
