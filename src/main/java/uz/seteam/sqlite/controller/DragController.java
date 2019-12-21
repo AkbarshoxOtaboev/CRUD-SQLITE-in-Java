@@ -79,7 +79,7 @@ public class DragController extends DragRepositroy {
         System.out.println("Input Date");
         String dateForDragBuy = scanner.next();
         Integer generalCost = dragCost * dragCount;
-        Drag updateDragById = new Drag(dragName, dragCost, dragCount, dateForDragBuy,generalCost);
+        Drag updateDragById = new Drag(dragName, dragCost, dragCount, dateForDragBuy,generalCost, (long) 3);
         updateDragById.setId(idDrag);
         ubdate(updateDragById);
 
@@ -98,7 +98,7 @@ public class DragController extends DragRepositroy {
         System.out.println("Input Date");
         String dateForDragBuy = scanner.next();
         Integer generalCost = dragCost * dragCount;
-        Drag newDrag = new Drag(dragName, dragCost, dragCount, dateForDragBuy,generalCost);
+        Drag newDrag = new Drag(dragName, dragCost, dragCount, dateForDragBuy,generalCost, (long) 3);
         createDrug(newDrag);
     }
 }
