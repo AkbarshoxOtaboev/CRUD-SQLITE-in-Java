@@ -14,27 +14,27 @@ public class Drag {
     private String date;
     private Integer generalCost;
 
-    private Long dragId;
+    private Long companyId;
 
 
     public Drag() {
     }
 
-    public Drag(String name, Integer cost, Integer count, String date, Integer generalCost, Long dragId) {
+    public Drag(String name, Integer cost, Integer count, String date, Integer generalCost, Long companyId) {
         this.name = name;
         this.cost = cost;
         this.count = count;
         this.date = date;
         this.generalCost = generalCost;
-        this.dragId = dragId;
+        this.companyId = companyId;
     }
 
-    public Long getDragId() {
-        return dragId;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setDragId(Long dragId) {
-        this.dragId = dragId;
+    public void setCompanyId(Long dragId) {
+        this.companyId = dragId;
     }
 
     public Long getId() {
@@ -95,5 +95,16 @@ public class Drag {
                 ", date='" + date + '\'' +
                 ", generalCost=" + generalCost +
                 '}';
+    }
+
+    @ManyToOne(optional = false)
+    private Company companies;
+
+    public Company getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(Company companies) {
+        this.companies = companies;
     }
 }

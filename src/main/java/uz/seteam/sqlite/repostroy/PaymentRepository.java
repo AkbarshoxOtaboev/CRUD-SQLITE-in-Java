@@ -1,21 +1,38 @@
 package uz.seteam.sqlite.repostroy;
 
 import org.hibernate.Session;
-import uz.seteam.sqlite.entity.Company;
+import uz.seteam.sqlite.entity.Payment;
 import uz.seteam.sqlite.utils.HibernateUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyRepository {
+public class PaymentRepository {
 
-
-    public List<Company> getAllCompany(){
+    public List<Payment> getAllPayments(){
         Session session = null;
-        List<Company> companies = new ArrayList<Company>();
+        List<Payment> payments = null;
         try{
             session = HibernateUtils.openSession();
-            companies = session.createQuery("select c from Company c").getResultList();
+            payments = session.createQuery("SELECT p FROM Payment p").getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(session != null &&  session.isOpen()){
+                session.close();
+            }
+        }
+        return payments;
+    }
+
+    public void createPayment(Payment payment){
+        Session session = null;
+        try{
+            session = HibernateUtils.openSession();
+            session.getTransaction().begin();
+            session.save(payment);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -23,38 +40,53 @@ public class CompanyRepository {
                 session.close();
             }
         }
-        return companies;
     }
 
-    public void createCompany(Company company){
-        Session session =null;
+    public void updatePaymet(Payment payment){
+        Session session = null;
         try{
             session = HibernateUtils.openSession();
             session.getTransaction().begin();
-            session.save(company);
+            session.merge(payment);
             session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            if(session !=null && session.isOpen()){
+            if(session != null && session.isOpen()){
                 session.close();
             }
         }
 
     }
 
-    public Company getCompanyById(Long id){
+    public void removePayment(Long id){
         Session session = null;
-        Company companyById = null;
+        try{
+            session = HibernateUtils.openSession();
+            Payment payment = session.find(Payment.class, id);
+            session.getTransaction().begin();
+            session.remove(payment);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(session != null && session.isOpen()){
+                session.close();
+            }
+        }
+    }
+
+    public Payment getPaymentById(Long id){
+        Session session = null;
+        Payment payment = null;
         try{
             session = HibernateUtils.openSession();
             try{
-                companyById = session.find(Company.class, id);
-                companyById.getDragList().forEach(System.out::println);
-            } catch (NullPointerException e) {
-                System.out.println("No company with id" + id);
+                payment = session.find(Payment.class , id);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -62,42 +94,6 @@ public class CompanyRepository {
                 session.close();
             }
         }
-        return companyById;
+        return payment;
     }
-
-    public void updateCompany(Company company){
-        Session session = null;
-        try{
-            session = HibernateUtils.openSession();
-            session.getTransaction().begin();
-            session.merge(company);
-            session.getTransaction().commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if(session != null && session.isOpen()){
-                session.close();
-            }
-        }
-    }
-
-    public void deleteCompany(Long id){
-        Session session = null;
-        try{
-            session = HibernateUtils.openSession();
-            Company companyToDelete = session.find(Company.class , id);
-            session.getTransaction().begin();
-            session.remove(companyToDelete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if(session != null && session.isOpen()){
-                session.close();
-            }
-        }
-    }
-
-
 }

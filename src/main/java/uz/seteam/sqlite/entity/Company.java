@@ -12,8 +12,11 @@ public class Company {
     private String name;
     private Integer balans;
 
-    @OneToMany(mappedBy = "dragId")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "companyId")
     private List<Drag> dragList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "companyId")
+    private List<Payment> paymentList;
 
     public Company() {
     }
@@ -21,6 +24,14 @@ public class Company {
     public Company(String name, Integer balans) {
         this.name = name;
         this.balans = balans;
+    }
+
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
     }
 
     public List<Drag> getDragList() {

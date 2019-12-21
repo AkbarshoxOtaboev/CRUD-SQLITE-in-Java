@@ -17,6 +17,7 @@
 
         <mapping class="uz.seteam.sqlite.entity.Company"/>
         <mapping class="uz.seteam.sqlite.entity.Drag"/>
+        <mapping class="uz.seteam.sqlite.entity.Payment"/>
 
     </session-factory>
 </hibernate-configuration>
